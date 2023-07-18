@@ -13,39 +13,70 @@ import java.util.List;
 import com.jdbc.dao.EmployeeDaoImplementation;
 import com.jdbc.model.Employee;
 
-public class Application {
+public class DaoMain {
 
-	public static void main(String[] args)
-		throws SQLException
-	{
+    public static void main(String[] args) {
 
-		Employee emp = new Employee();
-		emp.setEmp_name("Haider");
-		emp.setEmp_address("Mars");
-		EmployeeDaoImplementation empDao
-			= new EmployeeDaoImplementation();
+        EmployeeDao employeeDao = new EmployeeDaoImplementation();
 
-		// add
-		empDao.add(emp);
+        // Adding employees
+        try {
+            Employee emp1 = new Employee("Ragavan", "Tamilnadu");
+            Employee emp2 = new Employee("VPR", "Kerala");
 
-		// read
-		Employee e = empDao.getEmployee(1);
-		System.out.println(e.getEmp_id() + " "
-						+ e.getEmp_name() + " "
-						+ e.getEmp_address());
+            employeeDao.add(emp1);
+            employeeDao.add(emp2);
 
-		// read All
-		List<Employee> ls = empDao.getEmployees();
-		for (Employee allEmp : ls) {
-			System.out.println(allEmp);
-		}
+            System.out.println("Employees added successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		// update
-		Employee tempEmployee = empDao.getEmployee(1);
-		tempEmployee.setEmp_address("Asgard");
-		empDao.update(tempEmployee);
+        // Getting all employees
+        try {
+            List<Employee> employees = employeeDao.getEmployees();
+            System.out.println("All Employees:");
+            for (Employee emp : employees) {
+                System.out.println(emp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		// delete
-		empDao.delete(1);
-	}
+        // Updating an employee
+        try {
+            Employee empToUpdate = employeeDao.getEmployee(1);
+            if (empToUpdate != null) {
+                empToUpdate.setEmp_name("Updated Name");
+                empToUpdate.setEmp_address("Updated Address");
+                employeeDao.update(empToUpdate);
+                System.out.println("Employee updated successfully!");
+            } else {
+                System.out.println("Employee with ID 1 not found!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Getting a specific employee
+        try {
+            Employee retrievedEmployee = employeeDao.getEmployee(1);
+            if (retrievedEmployee != null) {
+                System.out.println("Retrieved Employee: " + retrievedEmployee);
+            } else {
+                System.out.println("Employee with ID 1 not found!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Deleting an employee
+        try {
+            int employeeIdToDelete = 2;
+            employeeDao.delete(employeeIdToDelete);
+            System.out.println("Employee with ID " + employeeIdToDelete + " deleted successfully!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
