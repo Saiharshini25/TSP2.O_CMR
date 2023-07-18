@@ -1,0 +1,39 @@
+/**
+*Database connection: Create a singleton connection class DatabaseConnection in com.jdbc.util package. 
+*Use your MySQL username and password on the variable user and pass. 
+*Look carefully at the last part of the “url” variable. 
+*It is mandatory to keep the name the same as the database name. 
+*The name of my database is “org” that’s why I put “org” in the URL variable.
+*/
+
+//Source Code
+
+package com.jdbc.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseConnection {
+
+	private static Connection con = null;
+
+	static
+	{
+		String url = "jdbc:mysql:// localhost:3306/org";
+		String user = "root";
+		String pass = "root";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pass);
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static Connection getConnection()
+	{
+		return con;
+	}
+}
+

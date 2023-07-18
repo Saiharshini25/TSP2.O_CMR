@@ -1,0 +1,9 @@
+#Creating a MySQL database and a table:
+create database org;
+use org;
+create table employee(
+    emp_id int auto_increment,
+    emp_name varchar(400),
+    emp_address varchar(400),
+    primary key (emp_id)
+);

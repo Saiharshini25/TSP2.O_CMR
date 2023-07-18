@@ -1,0 +1,5 @@
+# Model Class: The model class is highly used in the MVC pattern where it works as an intermediate medium between business logic and the view. Usually, a model contains some variables and methods of a specific entity.
+
+# Singleton Class: Singleton class is a software design pattern that ensures there will be one single instance of that class. There are multiple ways to achieve a singleton class.
+
+# Approach: We are going to create an Organization database that contains an Employee table. We will also create a java application that will connect with the Organization database. The connection will be established by a singleton class which will contain all the necessary driver information. From the java application, we will perform some data manipulation tasks like insert, delete, update and retrieve using a model object of Employee.
